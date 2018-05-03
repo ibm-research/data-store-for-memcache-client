@@ -311,9 +311,9 @@ def main(args):
 
         # 3. create local ssl key
         ssl_cnf = SSLClientConf(args.email,
-                                        args.ssl_subject,
-                                        args.domain,
-                                        cli_dir=args.stunnel_conf_path)
+                                args.ssl_subject,
+                                args.domain,
+                                cli_dir=args.stunnel_conf_path)
         logging.info('Creating local ssl keys.')
         ret = cl.create_ssl_key(ssl_cnf)
         if not ret:
@@ -322,6 +322,7 @@ def main(args):
 
         logging.info('Asking for authentication and authorization against {}.'.format(cl.dsfm_setup_url))
         logging.info('This might take a while.')
+
         # 4. authenticate with service and get the key certified
         ret = cl.dsfm_authenticate_setup(ssl_cnf)
         if not ret:
@@ -330,6 +331,7 @@ def main(args):
 
         logging.info('Authorization success. '\
                      'Setting up end-to-end ssl encryption using stunnel.')
+
         # 5. setup and launch stunnel, verify that it works
         ret = cl.configure_stunnel(ssl_cnf)
         if not ret:
@@ -450,4 +452,5 @@ if __name__ == '__main__' :
         elif ret['result'] == 'notexists':
             logging.debug('Data Store for Memcache client requires stunnel to be installed.')
         else:
-            logging.info('failed to setup data store for memcache client. Please contact support.')
+            logging.info('Failed to setup data store for memcache client.')
+            logging.info('Please contact support at {}.'.format('https://ibm-cloudplatform.slack.com/messages/C8341DHT7'))
