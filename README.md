@@ -15,11 +15,11 @@ Data Store for Memcache implements the ascii [memcache protocol](https://github.
 ### Install dependencies
 
 #### On Ubuntu:
-`sudo apt-get install stunnel4 -y`
+`sudo apt-get install stunnel4 -y`  
 `pip install -r requirements.txt`
 
 #### On Mac:
-`brew install stunnel`
+`brew install stunnel`  
 `pip install -r requirements.txt`
 
 
