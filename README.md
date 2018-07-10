@@ -15,11 +15,11 @@ Data Store for Memcache implements the ascii [memcache protocol](https://github.
 ### Install dependencies
 
 #### On Ubuntu:
-`sudo apt-get install stunnel4 -y`  
+`sudo apt-get install stunnel4 -y`
 `pip install -r requirements.txt`
 
 #### On Mac:
-`brew install stunnel`  
+`brew install stunnel`
 `pip install -r requirements.txt`
 
 
@@ -27,4 +27,4 @@ Data Store for Memcache implements the ascii [memcache protocol](https://github.
 
 You'll need an [IBM cloud api key](https://console.bluemix.net/docs/iam/apikeys.html#platform-api-keys) to use the setup script. The service instance crn should be provided at your Data Store for Memcache service instance's dashboard.
 
-`python python/client.py --apikey <your-bluemix-api-key> --instance_crn <your-service-instance-crn>`
+`python python/client.py --apikey <your-ibm-cloud-api-key> --instance_crn <your-service-instance-crn>`

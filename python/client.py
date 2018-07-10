@@ -189,8 +189,11 @@ class DsfmClient():
             data = urllib.parse.urlencode({'grant_type': 'urn:ibm:params:oauth:grant-type:apikey', 'apikey': self.apikey})
         else:
             data = urllib.urlencode({'grant_type': 'urn:ibm:params:oauth:grant-type:apikey', 'apikey': self.apikey})
+        if self.instance_crn.split(':')[2] == 'staging':
+            url = 'https://iam.stage1.bluemix.net/identity/token'
+        else:
+            url = 'https://iam.bluemix.net/identity/token'
 
-        url = 'https://iam.stage1.bluemix.net/identity/token'
         headers = {
 	    'Content-Type': 'application/x-www-form-urlencoded',
 	    'Accept': 'application/json',
@@ -415,7 +418,7 @@ if __name__ == '__main__' :
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--apikey', help='Bluemix account api key', required=True)
     parser.add_argument('--instance_crn', help='Bluemix service instance crn',
-                        default='crn%3Av1%3Astaging%3Apublic%3Adata-store-for-memcache%3Aus-south%3Aa%2Ftest-test-01')
+                        default='crn%3Av1%3Abluemix%3Apublic%3Adata-store-for-memcache%3Aus-south%3Aa%2Ftest-test-01')
     parser.add_argument('--dsfm_setup_url', default = 'https://dsfm.stage1.mybluemix.net/auth/instance', help='URL for service setup')
     parser.add_argument('--stunnel_conf_path', default = os.path.join(os.environ['HOME'], '.stunnel'), help='path for stunnel setup files')
     parser.add_argument('--email', default = 'client@client.com', help='client email')
