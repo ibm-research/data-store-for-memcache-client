@@ -189,9 +189,15 @@ class DsfmClient():
             data = urllib.parse.urlencode({'grant_type': 'urn:ibm:params:oauth:grant-type:apikey', 'apikey': self.apikey})
         else:
             data = urllib.urlencode({'grant_type': 'urn:ibm:params:oauth:grant-type:apikey', 'apikey': self.apikey})
-        if self.instance_crn.split(':')[2] == 'staging':
-            url = 'https://iam.stage1.bluemix.net/identity/token'
-        else:
+        crn = self.instance_crn.replace('%3A', ':')
+        try:
+            if crn.split(':')[2] == 'staging':
+                url = 'https://iam.stage1.bluemix.net/identity/token'
+            else:
+                url = 'https://iam.bluemix.net/identity/token'
+        except Exception:
+            logging.warning('crn seems to be wrong')
+            # defautl to public url
             url = 'https://iam.bluemix.net/identity/token'
 
         headers = {
