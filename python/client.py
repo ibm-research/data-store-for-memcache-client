@@ -180,7 +180,14 @@ class DsfmClient():
         self.user_agent = 'Data Store for Memcache client'
         #self.request_headers.add('User-Agent', self.user_agent)
         self.stunnel_path = stunnel_conf_path
-        self.dsfm_setup_url = dsfm_setup_url
+        try:
+            crn = instance_crn.replace('%3A', ':')
+            if crn.split(':')[2] == 'staging':
+                self.dsfm_setup_url = 'https://dsfm.stage1.mybluemix.net/auth/instance'
+            else:
+                self.dsfm_setup_url = 'https://dsfm.mybluemix.net/auth/instance'
+        except Exception:
+            self.dsfm_setup_url = dsfm_setup_url
         self.access_token = ''
         self.logged_in = False
 
@@ -425,7 +432,7 @@ if __name__ == '__main__' :
     parser.add_argument('--apikey', help='Bluemix account api key', required=True)
     parser.add_argument('--instance_crn', help='Bluemix service instance crn',
                         default='crn%3Av1%3Abluemix%3Apublic%3Adata-store-for-memcache%3Aus-south%3Aa%2Ftest-test-01')
-    parser.add_argument('--dsfm_setup_url', default = 'https://dsfm.stage1.mybluemix.net/auth/instance', help='URL for service setup')
+    parser.add_argument('--dsfm_setup_url', default = 'https://dsfm.mybluemix.net/auth/instance', help='URL for service setup')
     parser.add_argument('--stunnel_conf_path', default = os.path.join(os.environ['HOME'], '.stunnel'), help='path for stunnel setup files')
     parser.add_argument('--email', default = 'client@client.com', help='client email')
     parser.add_argument('--ssl_subject', default = '/C=US/ST=TX/L=Dallas/O=Client/CN=client.com', help='client ssl info')
