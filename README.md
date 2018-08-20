@@ -2,7 +2,7 @@
 
 ## Description
 
-IBM Data Store for Memcache Service provides a managed memcache service in the IBM Cloud that provides Non-Volatile Memory-based object caching to accelerate cloud applications.
+[IBM Data Store for Memcache](https://console.bluemix.net/catalog/services/data-store-for-memcache) Service provides a managed memcache service in the IBM Cloud that provides Non-Volatile Memory-based object caching to accelerate cloud applications.
 Cloud applications extensively use DRAM-based caching solutions, like [Memcached](http://memcached.org/), to accelerate their workloads (e.g., [drupal](https://www.drupal.org/project/memcache), [wikipedia](http://www.datacenterknowledge.com/archives/2008/06/24/a-look-inside-wikipedias-infrastructure), [reddit](https://redditblog.com/2017/01/17/caching-at-reddit/), etc., transparently use memcache).
 Data Store for Memcache replaces DRAM with modern NVM storage for caching using the same memcache API, offering orders of magnitude higher capacity, at a lower cost, while maintaining performance.
 
