@@ -120,6 +120,7 @@ class SSLClientConf(object):
 stunnel_cli_cnf_template_ = '''
 pid = {pidfile}
 socket = r:TCP_NODELAY=1
+socket = l:TCP_NODELAY=1
 #debug = 7
 foreground = {foreground}
 
