@@ -17,6 +17,7 @@ limitations under the License.
 import json
 import logging
 import os
+import stat
 import shutil
 import signal
 import subprocess as sp
@@ -95,6 +96,12 @@ class SSLClientConf(object):
     def write_openssl_cli_conf(self):
         with open(self.cli_conf, 'w') as f:
             f.write(self.openssl_cli_conf())
+
+    def update_cli_key_perms(self):
+        os.chmod(self.cli_key, stat.S_IRUSR | stat.S_IWUSR)
+
+    def update_cli_cert_perms(self):
+        os.chmod(self.cli_cert, stat.S_IRUSR | stat.S_IWUSR)
 
     def read_openssl_cli_req(self):
         cli_req = ''
@@ -233,6 +240,7 @@ class DsfmClient():
         try:
             ssl_cnf.write_openssl_cli_conf()
             ret,_,_ = call(ssl_cnf.openssl_generate_cli_keys_cmd())
+            ssl_cnf.update_cli_key_perms()
         except Exception:
             exc_type, exc_value, exc_traceback = sys.exc_info()
             traceback.print_exception(exc_type, exc_value, exc_traceback,
@@ -286,9 +294,12 @@ class DsfmClient():
             # write ca cert
             with open(cli.ca_cert, 'w') as f:
                 f.write(self.ca_cert_string)
+            os.chmod(cli.ca_cert, stat.S_IRUSR | stat.S_IWUSR)
 
             # Client: written stunel conf and start stunnel
             cli.write_stunnel_cli_conf()
+            ssl_cnf.update_cli_cert_perms()
+
             cli_stunnel = sp.Popen('stunnel {}'.format(cli.cli_stunnel_conf), shell=True)
         except Exception:
             exc_type, exc_value, exc_traceback = sys.exc_info()
