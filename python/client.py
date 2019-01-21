@@ -28,6 +28,11 @@ import argparse
 import requests
 import urllib
 
+try:
+	raw_input  # Python 2
+except NameError:  # Python 3
+	raw_input = input
+
 openssl_cli_cnf_template_ = '''
 ####################################################################
 [ req ]
